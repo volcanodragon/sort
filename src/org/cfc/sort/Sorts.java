@@ -12,10 +12,15 @@ public class Sorts {
             return;
         }
         for (int i = 1; i < nums.length; i++) {
+            boolean noSwap = true;
             for (int j = nums.length - 1; j >= i; j--) {
                 if (nums[j] < nums[j - 1]) {
                     swap(nums, j - 1, j);
+                    noSwap = false;
                 }
+            }
+            if (noSwap) {
+                break;
             }
         }
     }
