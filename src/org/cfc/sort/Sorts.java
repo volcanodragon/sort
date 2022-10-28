@@ -104,6 +104,60 @@ public class Sorts {
         }
     }
 
+    /**
+     * 希尔排序
+     */
+    public static void shellSort(Integer[] nums) {
+        int gap = nums.length, temp;
+        while (gap >= 2) {
+            gap = gap / 2;
+            for (int i = 0; i < gap; i++) {
+                for (int j = i + gap; j < nums.length; j = j + gap) {
+                    temp = nums[j];
+                    for (int k = j; k >= i; k = k - gap) {
+                        if (k != i && temp < nums[k - gap]) {
+                            nums[k] = nums[k - gap];
+                        } else {
+                            nums[k] = temp;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 归并排序[递归实现]
+     */
+    public static void mergeSortRec(Integer[] nums) {
+        merge(nums, 0, nums.length - 1, new Integer[nums.length]);
+    }
+
+    private static void merge(Integer[] nums, int start, int end, Integer[] temp) {
+        if (start == end) {
+            return;
+        }
+        int middle = (start + end) / 2;
+        merge(nums, start, middle, temp);
+        merge(nums, middle + 1, end, temp);
+        int m = start, n = middle + 1, t = start;
+        while (m <= middle && n <= end) {
+            if (nums[m] <= nums[n]) {
+                temp[t++] = nums[m++];
+            } else {
+                temp[t++] = nums[n++];
+            }
+        }
+        while (m <= middle) {
+            temp[t++] = nums[m++];
+        }
+        while (n <= end) {
+            temp[t++] = nums[n++];
+        }
+        System.arraycopy(temp, start, nums, start, end - start + 1);
+    }
+
     private static void swap(Integer[] nums, int a, int b) {
         Integer temp = nums[a];
         nums[a] = nums[b];
